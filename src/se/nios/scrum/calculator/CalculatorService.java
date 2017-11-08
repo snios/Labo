@@ -85,7 +85,7 @@ public class CalculatorService {
         return firstValue;
     }
 
-    public double getMemValue(String m1) {
-        return mMemory.get(m1);
+    public double getMemValue(String input) {
+        return mMemory.get(input);
     }
 }
