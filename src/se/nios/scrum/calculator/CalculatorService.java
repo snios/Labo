@@ -1,44 +1,133 @@
 package se.nios.scrum.calculator;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
-import java.text.ParseException;
+import java.math.BigInteger;
+import java.util.InputMismatchException;
 import java.util.Locale;
+import java.util.Scanner;
 
 public class CalculatorService {
-    Locale locale = Locale.getDefault();
-    DecimalFormat decFormat = new DecimalFormat();
-    DecimalFormatSymbols decSymbols;
 
 
-    public double add(String s) throws ParseException {
+    public double add(String first, String second) throws InvalidCalculatorInputFormat {
+        Locale locale = Locale.getDefault();
+        double firstValue = 0D;
+        double secondValue = 0D;
 
-        decSymbols = decFormat.getDecimalFormatSymbols();
-        System.out.println("Decimal separator is : " + decSymbols.getDecimalSeparator());
-        String localSeparator = String.valueOf(decSymbols.getDecimalSeparator());
+        try{
+            Scanner scanner = new Scanner(first);
+            scanner.useLocale(locale);
+            firstValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+        }
 
-        NumberFormat numberFormat = NumberFormat.getInstance(locale);
-        String firstValue = s.substring(0,s.indexOf('+'));
-        String secondValue = s.substring(s.indexOf('+')+1);
-        firstValue = firstValue.replaceAll("\\s+","");
-        secondValue = secondValue.replaceAll("\\s+","");
-        System.out.println(firstValue);
-        System.out.println(secondValue);
+        try{
+            Scanner scanner = new Scanner(second);
+            scanner.useLocale(locale);
+            secondValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
 
-        Number n1 = numberFormat.parse(firstValue);
-        Number n2 = numberFormat.parse(secondValue);
+        }
 
 
 
-        double calculatedValue =  n1.doubleValue() + n2.doubleValue();
-        return calculatedValue;
+        return firstValue + secondValue;
     }
 
-    public double subtract(String s) {
-        double firstValue = Double.valueOf(s.substring(0,s.indexOf('-') - 1));
-        double secondValue = Double.valueOf(s.substring(s.indexOf('-')+1));
-        double calculatedValue =  firstValue - secondValue;
-        return calculatedValue;
+    public double subtract(String first, String second) throws InvalidCalculatorInputFormat {
+        Locale locale = Locale.getDefault();
+        double firstValue = 0D;
+        double secondValue = 0D;
+
+        try{
+            Scanner scanner = new Scanner(first);
+            scanner.useLocale(locale);
+            firstValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+        }
+
+        try{
+            Scanner scanner = new Scanner(second);
+            scanner.useLocale(locale);
+            secondValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+
+        }
+        return firstValue - secondValue;
+    }
+
+    public double multiply(String first, String second) throws InvalidCalculatorInputFormat {
+        Locale locale = Locale.getDefault();
+        double firstValue = 0D;
+        double secondValue = 0D;
+
+        try{
+            Scanner scanner = new Scanner(first);
+            scanner.useLocale(locale);
+            firstValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+        }
+
+        try{
+            Scanner scanner = new Scanner(second);
+            scanner.useLocale(locale);
+            secondValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+
+        }
+
+        return firstValue * secondValue;
+    }
+
+    public double divide(String first, String second) throws InvalidCalculatorInputFormat {
+        Locale locale = Locale.getDefault();
+        double firstValue = 0D;
+        double secondValue = 0D;
+
+        try{
+            Scanner scanner = new Scanner(first);
+            scanner.useLocale(locale);
+            firstValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+        }
+
+        try{
+            Scanner scanner = new Scanner(second);
+            scanner.useLocale(locale);
+            secondValue = scanner.nextDouble();
+        }catch (InputMismatchException e){
+            throw  new InvalidCalculatorInputFormat();
+
+        }
+        return firstValue / secondValue;
+    }
+
+    public String getNthFibonacci(String value) {
+        BigInteger firstFib = BigInteger.valueOf(0);
+        BigInteger secondFib = BigInteger.valueOf(1);
+        BigInteger currentFib = BigInteger.valueOf(0);
+        int fibSteps = Integer.valueOf(value);
+
+        if (value == "0" || value == "1"){
+            return value;
+        }
+
+
+        for(int i = 0; i < fibSteps -1; i++){
+            currentFib = firstFib.add(secondFib);
+            firstFib = secondFib;
+            secondFib = currentFib;
+        }
+        System.out.println("CurrentFib: " + currentFib);
+        return String.valueOf(currentFib);
+
+
+
     }
 }

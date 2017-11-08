@@ -17,23 +17,62 @@ public class CalculatorServiceTest {
     }
 
     @Test
-    public void testAddition() throws InvalidCalculatorInputFormat {
+    public void testAddition() {
         double calculatedValue = 0;
         try {
-            calculatedValue = calculatorService.add("124.22+200.23 ");
-        } catch (ParseException e) {
-            e.printStackTrace();
+            calculatedValue = calculatorService.add("200.25", "200.75");
+        } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
+            invalidCalculatorInputFormat.printStackTrace();
         }
-
         System.out.println(calculatedValue);
-        assertTrue("did not work", calculatedValue  == 124.22+200.23);
+        assertTrue("did not work", calculatedValue  == 200.25+200.75);
     }
 
     @Test
     public void testSubtraction(){
-        double calculatedValue = calculatorService.subtract("124   -   200");
+        double calculatedValue = 0;
+        try {
+            calculatedValue = calculatorService.subtract("124","200");
+        } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
+            invalidCalculatorInputFormat.printStackTrace();
+        }
+        System.out.println(calculatedValue);
         assertTrue("did not work", calculatedValue == 124-200);
     }
+
+    @Test
+    public void testMultiplication(){
+        double calculatedValue = 0;
+        try {
+            calculatedValue = calculatorService.multiply("10.1","100.75");
+        } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
+            invalidCalculatorInputFormat.printStackTrace();
+        }
+        System.out.println(calculatedValue);
+        assertTrue("Multiplication failed", calculatedValue == 10.1*100.75);
+
+    }
+
+    @Test
+    public void testDivision(){
+        double calculatedValue = 0;
+        try {
+            calculatedValue = calculatorService.divide("100", "10.2");
+        } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
+            invalidCalculatorInputFormat.printStackTrace();
+        }
+
+        System.out.println(calculatedValue);
+        assertTrue("Division failed", calculatedValue == 100D/10.2D);
+    }
+
+    @Test
+    public void testNthFibonacci() {
+        String calculatedValue = "";
+        calculatedValue = calculatorService.getNthFibonacci("300");
+    }
+
+
 
 
 }
