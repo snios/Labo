@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class CalculatorService {
-    private Map<String,Double> mMemory;
+    private Map<String, Double> mMemory;
 
-    public CalculatorService(){
+    public CalculatorService() {
         mMemory = new HashMap<>();
     }
 
@@ -18,7 +18,6 @@ public class CalculatorService {
         firstValue = getFormattedValue(first, locale);
         secondValue = getFormattedValue(second, locale);
         double calcValue = firstValue + secondValue;
-        mMemory.put("m"+mMemory.size(),calcValue);
         return calcValue;
     }
 
@@ -29,7 +28,6 @@ public class CalculatorService {
         firstValue = getFormattedValue(first, locale);
         secondValue = getFormattedValue(second, locale);
         double calcValue = firstValue - secondValue;
-        mMemory.put("m"+mMemory.size(),calcValue);
         return calcValue;
     }
 
@@ -40,7 +38,6 @@ public class CalculatorService {
         firstValue = getFormattedValue(first, locale);
         secondValue = getFormattedValue(second, locale);
         double calcValue = firstValue * secondValue;
-        mMemory.put("m"+mMemory.size(),calcValue);
         return calcValue;
     }
 
@@ -51,7 +48,6 @@ public class CalculatorService {
         firstValue = getFormattedValue(first, locale);
         secondValue = getFormattedValue(second, locale);
         double calcValue = firstValue / secondValue;
-        mMemory.put("m"+mMemory.size(),calcValue);
         return calcValue;
     }
 
@@ -60,7 +56,7 @@ public class CalculatorService {
         BigInteger secondFib = BigInteger.valueOf(1);
         BigInteger currentFib = BigInteger.valueOf(0);
         int fibSteps = Integer.valueOf(value);
-        if (value.equals("0")|| value.equals("1")) {
+        if (value.equals("0") || value.equals("1")) {
             return value;
         }
         for (int i = 0; i < fibSteps - 1; i++) {
@@ -87,5 +83,9 @@ public class CalculatorService {
 
     public double getMemValue(String input) {
         return mMemory.get(input);
+    }
+
+    public void saveValue(String key, double value) {
+        mMemory.put(key, value);
     }
 }

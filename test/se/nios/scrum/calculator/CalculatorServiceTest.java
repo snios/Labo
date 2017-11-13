@@ -1,6 +1,5 @@
 package se.nios.scrum.calculator;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +30,7 @@ public class CalculatorServiceTest {
         } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
             invalidCalculatorInputFormat.printStackTrace();
         }
-        assertTrue("did not work", calculatedValue == 200.25 + 200.75);
+        assertTrue("Addition test failed", calculatedValue == 200.25 + 200.75);
     }
 
     @Test
@@ -43,7 +41,7 @@ public class CalculatorServiceTest {
         } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
             invalidCalculatorInputFormat.printStackTrace();
         }
-        assertTrue("did not work", calculatedValue == 124 - 200);
+        assertTrue("Subtraction test failed", calculatedValue == 124 - 200);
     }
 
     @Test
@@ -54,7 +52,7 @@ public class CalculatorServiceTest {
         } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
             invalidCalculatorInputFormat.printStackTrace();
         }
-        assertTrue("Multiplication failed", calculatedValue == 10.1 * 100.75);
+        assertTrue("Multiplication test failed", calculatedValue == 10.1 * 100.75);
     }
 
     @Test
@@ -65,20 +63,22 @@ public class CalculatorServiceTest {
         } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
             invalidCalculatorInputFormat.printStackTrace();
         }
-        assertTrue("Division failed", calculatedValue == 100D / 10.2D);
+        assertTrue("Division test failed", calculatedValue == 100D / 10.2D);
     }
 
     @Test
-    public void testGetMemValue() {
+    public void testMemoryFunction() {
         double calculatedValue = 0;
         try {
             calculatedValue = calculatorService.add("10", "10");
+            calculatorService.saveValue("m1", calculatedValue);
         } catch (InvalidCalculatorInputFormat invalidCalculatorInputFormat) {
             invalidCalculatorInputFormat.printStackTrace();
         }
 
-        assertTrue("Memory value not present", calculatedValue == calculatorService.getMemValue("m0"));
+        assertTrue("Memory test failed", calculatedValue == calculatorService.getMemValue("m1"));
     }
+
 
     @Test
     public void testNthFibonacci() {
@@ -103,7 +103,7 @@ public class CalculatorServiceTest {
         for (int i = 0; i < mFibonacciList.size(); i++) {
             calculatedValue = calculatorService.getNthFibonacci(String.valueOf(i));
             fibListValue = mFibonacciList.get(String.valueOf(i));
-            assertTrue("Fibonacci numbers doesn't match!", calculatedValue.equals(fibListValue));
+            assertTrue("Fibonacci test failed", calculatedValue.equals(fibListValue));
         }
     }
 }
